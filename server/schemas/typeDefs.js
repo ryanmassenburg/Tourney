@@ -9,6 +9,15 @@ const typeDefs = gql`
     thoughts: [Thought]!
   }
 
+  type Tourney {
+    _id: ID
+    user: String
+    name: String
+    description: String
+    game: String
+    date: String
+  }
+
   type Thought {
     _id: ID
     thoughtText: String
