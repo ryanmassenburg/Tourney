@@ -33,7 +33,7 @@ const resolvers = {
       return { token, user };
     },
     addTourney: async (parent, { user, name, description, game, startTime}) => {
-      const tourney = await Tourney.create({ user, name, description, game, startTime});
+      const tourney = await Tourney.create({ user, name, description, game, startTime:new Date(startTime)});
       return tourney;
     },
     login: async (parent, { email, password }) => {

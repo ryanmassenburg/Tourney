@@ -5,17 +5,16 @@ const typeDefs = gql`
     _id: ID
     username: String
     email: String
-    password: String
     thoughts: [Thought]!
   }
 
   type Tourney {
     _id: ID
-    user: [User]!
+    user: User!
     name: String
     description: String
     game: String
-    startTime: Date
+    startTime: String
   }
 
   type Thought {
@@ -49,7 +48,7 @@ const typeDefs = gql`
 
   type Mutation {
     addUser(username: String!, email: String!, password: String!): Auth
-    addTourney(user: [User]!, name: String!, description: String!, game: String!, startTime: Date!): Tourney
+    addTourney(user: String!, name: String!, description: String!, game: String!, startTime: String!): Tourney
     login(email: String!, password: String!): Auth
     addThought(thoughtText: String!, thoughtAuthor: String!): Thought
     addComment(
