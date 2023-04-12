@@ -15,6 +15,7 @@ const typeDefs = gql`
     description: String
     game: String
     startTime: String
+    players: [User!]
   }
 
   type Thought {

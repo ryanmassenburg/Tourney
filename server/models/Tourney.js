@@ -23,6 +23,12 @@ const tourneySchema = new Schema({
     type: Date,
     required: true,
   },
+  players: [
+      {
+      type: Schema.Types.ObjectId,
+      ref: 'User',
+    },
+  ],
 });
 
 const Tourney = model('Tourney', tourneySchema);

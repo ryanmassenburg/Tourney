@@ -36,6 +36,14 @@ const resolvers = {
       const tourney = await Tourney.create({ user, name, description, game, startTime:new Date(startTime)});
       return tourney;
     },
+    addPlayer: async (parent, { tourneyId, player }) => {
+      return Thought.findOneAndUpdate(
+        { _id: tourneyId },
+        {
+          $addToSet: { players: { player } },
+        },
+      );
+    },
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
 
