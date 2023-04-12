@@ -1,6 +1,7 @@
 const { AuthenticationError } = require('apollo-server-express');
-const { User, Thought } = require('../models');
+const { User, Thought, Tourney } = require('../models');
 const { signToken } = require('../utils/auth');
+const { populate } = require('../models/Tourney');
 
 const resolvers = {
   Query: {
@@ -9,6 +10,12 @@ const resolvers = {
     },
     user: async (parent, { username }) => {
       return User.findOne({ username }).populate('thoughts');
+    },
+    tourneys: async () => {
+      return (Tourney.find().populate('name'))
+    },
+    tourney: async () => {
+      return (PLACEHOLDER)
     },
     thoughts: async (parent, { username }) => {
       const params = username ? { username } : {};
@@ -24,6 +31,10 @@ const resolvers = {
       const user = await User.create({ username, email, password });
       const token = signToken(user);
       return { token, user };
+    },
+    addTourney: async (parent, { user, name, description, game, startTime}) => {
+      const tourney = await Tourney.create({ user, name, description, game, startTime});
+      return tourney;
     },
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
