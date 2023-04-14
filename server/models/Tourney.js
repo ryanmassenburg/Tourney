@@ -6,7 +6,7 @@ const tourneySchema = new Schema({
       ref: 'User',
       required: true,
   },
-  name: {
+  tourneyName: {
     type: String,
     required: true,
     unique: true,
