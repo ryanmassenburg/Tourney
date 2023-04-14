@@ -24,9 +24,9 @@ const typeDefs = gql`
 
   type Query {
     tourneys: [Tourney]
-    organizer: (organizer: String!): Tourney
+    organizer(organizer: String!): Tourney
     users: [User]
-    players: (players: String!): Tourneys
+    players(players: String!): Tourney
   }
 
   type Mutation {

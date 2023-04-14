@@ -9,10 +9,10 @@ const resolvers = {
       return User.find().populate('username');
     },
     tourneys: async () => {
-      return (Tourney.find().populate('tourneyName'))
+      return Tourney.find().populate('tourneyName');
     },
     organizer: async ({ tourney }) => {
-      return (Tourney.findone({ tourney }).populate('organizer'))
+      return Tourney.findone({ tourney }).populate('organizer');
     },
     players: async ({ tourneyName }) => {
       return Tourney.findOne({ tourneyName }).populate('players');
