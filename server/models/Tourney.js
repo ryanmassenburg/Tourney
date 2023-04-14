@@ -1,15 +1,15 @@
 const { Schema, model } = require('mongoose');
 
 const tourneySchema = new Schema({
-  user: {
+  organizer: {
       type: Schema.Types.ObjectId,
       ref: 'User',
       required: true,
   },
-  name: {
+  tourneyName: {
     type: String,
     required: true,
-    unique: true,
+//    unique: true,
   },
   description: {
     type: String,
