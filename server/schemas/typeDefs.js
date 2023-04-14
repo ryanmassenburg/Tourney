@@ -31,8 +31,8 @@ const typeDefs = gql`
 
   type Mutation {
     addUser(username: String!, email: String!, password: String!): Auth
-    addTourney(organizer: String!, tourneyName: String!, description: String!, game: String!, startTime: String!): Tourney
-    addPlayer(players: String!): Tourney
+    addTourney(organizer: ID, tourneyName: String!, description: String!, game: String!, startTime: String!): Tourney
+    addPlayer(tourneyId: ID, userId: ID): Tourney
     login(email: String!, password: String!): Auth
   }
 `;

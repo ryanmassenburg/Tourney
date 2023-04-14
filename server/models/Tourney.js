@@ -9,7 +9,7 @@ const tourneySchema = new Schema({
   tourneyName: {
     type: String,
     required: true,
-    unique: true,
+//    unique: true,
   },
   description: {
     type: String,
