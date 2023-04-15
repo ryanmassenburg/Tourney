@@ -1,31 +1,31 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const ThoughtList = ({ thoughts, title }) => {
-  if (!thoughts.length) {
-    return <h3>No Thoughts Yet</h3>;
+const TourneyList = ({ tourneys, title }) => {
+  if (!tourneys.length) {
+    return <h3>No Tourneys Yet</h3>;
   }
 
   return (
     <div>
       <h3>{title}</h3>
-      {thoughts &&
-        thoughts.map((thought) => (
-          <div key={thought._id} className="card mb-3">
+      {tourneys &&
+        tourneys.map((tourney) => (
+          <div key={tourney._id} className="card mb-3">
             <h4 className="card-header bg-primary text-light p-2 m-0">
-              {thought.thoughtAuthor} <br />
+              {tourney.organizer} <br />
               <span style={{ fontSize: '1rem' }}>
-                had this thought on {thought.createdAt}
+                had this tourney on {tourney.createdAt}
               </span>
             </h4>
             <div className="card-body bg-light p-2">
-              <p>{thought.thoughtText}</p>
+              <p>{tourney.tourneyName}</p>
             </div>
             <Link
               className="btn btn-primary btn-block btn-squared"
-              to={`/thoughts/${thought._id}`}
+              to={`/tourneys/${tourney._id}`}
             >
-              Join the discussion on this thought.
+              Join a Tourney
             </Link>
           </div>
         ))}
@@ -33,4 +33,4 @@ const ThoughtList = ({ thoughts, title }) => {
   );
 };
 
-export default ThoughtList;
+export default TourneyList;

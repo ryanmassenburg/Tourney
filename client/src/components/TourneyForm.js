@@ -2,24 +2,24 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 
-import { ADD_THOUGHT } from '../utils/mutations';
+import { ADD_TOURNEY } from '../utils/mutations';
 import { QUERY_TOURNEYS } from '../utils/queries';
 
 import Auth from '../utils/auth';
 
-const ThoughtForm = () => {
-  const [thoughtText, setThoughtText] = useState('');
+const TourneyForm = () => {
+  const [tourneyName, setTourneyName] = useState('');
 
-  const [characterCount, setCharacterCount] = useState(0);
+  
 
-  const [addThought, { error }] = useMutation(ADD_TOURNEY, {
-    update(cache, { data: { addThought } }) {
+  const [addTourney, { error }] = useMutation(ADD_TOURNEY, {
+    update(cache, { data: { addTourney } }) {
       try {
-        const { thoughts } = cache.readQuery({ query: QUERY_TOURNEYS });
+        const { tourneys } = cache.readQuery({ query: QUERY_TOURNEYS });
 
         cache.writeQuery({
-          query: QUERY_THOUGHTS,
-          data: { thoughts: [addThought, ...thoughts] },
+          query: QUERY_TOURNEYS,
+          data: { tourneys: [addTourney, ...tourneys] },
         });
       } catch (e) {
         console.error(e);
@@ -31,14 +31,17 @@ const ThoughtForm = () => {
     event.preventDefault();
 
     try {
-      const { data } = await addThought({
+      const { data } = await addTourney({
         variables: {
-          thoughtText,
-          thoughtAuthor: Auth.getProfile().data.username,
+          tourneyName,
+          // description,
+          // game,
+          // startTime,
+          organizer: Auth.getProfile().data.username,
         },
       });
 
-      setThoughtText('');
+      setTourneyName('');
     } catch (err) {
       console.error(err);
     }
@@ -47,34 +50,34 @@ const ThoughtForm = () => {
   const handleChange = (event) => {
     const { name, value } = event.target;
 
-    if (name === 'thoughtText' && value.length <= 280) {
-      setThoughtText(value);
-      setCharacterCount(value.length);
+    if (name === 'tourneyName' && value.length <= 280) {
+      setTourneyName(value);
+      
     }
   };
 
   return (
     <div>
-      <h3>What's on your techy mind?</h3>
+      <h3>Create a Toruney</h3>
 
       {Auth.loggedIn() ? (
         <>
-          <p
+          {/* <p
             className={`m-0 ${
               characterCount === 280 || error ? 'text-danger' : ''
             }`}
           >
             Character Count: {characterCount}/280
-          </p>
+          </p> */}
           <form
             className="flex-row justify-center justify-space-between-md align-center"
             onSubmit={handleFormSubmit}
           >
             <div className="col-12 col-lg-9">
               <textarea
-                name="thoughtText"
-                placeholder="Here's a new thought..."
-                value={thoughtText}
+                name="tourneyName"
+                placeholder="Name"
+                value={tourneyName}
                 className="form-input w-100"
                 style={{ lineHeight: '1.5', resize: 'vertical' }}
                 onChange={handleChange}
@@ -83,7 +86,7 @@ const ThoughtForm = () => {
 
             <div className="col-12 col-lg-3">
               <button className="btn btn-primary btn-block py-3" type="submit">
-                Add Thought
+                Add Tourney
               </button>
             </div>
             {error && (
@@ -103,4 +106,4 @@ const ThoughtForm = () => {
   );
 };
 
-export default ThoughtForm;
+export default TourneyForm;
