@@ -58,7 +58,7 @@ const TourneyForm = () => {
 
   return (
     <div>
-      <h3>Create a Toruney</h3>
+      <h3>Create a Tourney</h3>
 
       {Auth.loggedIn() ? (
         <>
@@ -74,14 +74,14 @@ const TourneyForm = () => {
             onSubmit={handleFormSubmit}
           >
             <div className="col-12 col-lg-9">
-              <textarea
+              <input
                 name="tourneyName"
                 placeholder="Name"
                 value={tourneyName}
                 className="form-input w-100"
                 style={{ lineHeight: '1.5', resize: 'vertical' }}
                 onChange={handleChange}
-              ></textarea>
+              ></input>
             </div>
 
             <div className="col-12 col-lg-3">
@@ -98,7 +98,7 @@ const TourneyForm = () => {
         </>
       ) : (
         <p>
-          You need to be logged in to share your thoughts. Please{' '}
+          You need to be logged in to create a Tourney. Please{' '}
           <Link to="/login">login</Link> or <Link to="/signup">signup.</Link>
         </p>
       )}
