@@ -25,7 +25,7 @@ const Home = () => {
           ) : (
             <TourneyList
               tourneys={tourneys}
-              title="Some Feed for Thought(s)..."
+              title="Available Tourneys, click yours to add players!"
             />
           )}
         </div>

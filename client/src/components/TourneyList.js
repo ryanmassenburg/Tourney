@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const TourneyList = ({ tourneys, title }) => {
-  if (!tourneys.length) {
+  if (tourneys === []) {
     return <h3>No Tourneys Yet</h3>;
   }
 
@@ -13,14 +13,8 @@ const TourneyList = ({ tourneys, title }) => {
         tourneys.map((tourney) => (
           <div key={tourney._id} className="card mb-3">
             <h4 className="card-header bg-primary text-light p-2 m-0">
-              {tourney.organizer} <br />
-              <span style={{ fontSize: '1rem' }}>
-                had this tourney on {tourney.createdAt}
-              </span>
+              {tourney.tourneyName} <br />
             </h4>
-            <div className="card-body bg-light p-2">
-              <p>{tourney.tourneyName}</p>
-            </div>
             <Link
               className="btn btn-primary btn-block btn-squared"
               to={`/tourneys/${tourney._id}`}

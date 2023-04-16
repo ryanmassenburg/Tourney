@@ -14,12 +14,20 @@ export const QUERY_TOURNEYS = gql`
   query getTourneys {
     tourneys {
       _id
-      organizer
+      organizer {
+        _id
+        email
+        username
+      }
       tourneyName
       description
       game
       startTime
-      players
+      players {
+        _id
+        email
+        username
+     }
     }
   }
 `;

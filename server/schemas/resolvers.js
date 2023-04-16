@@ -8,8 +8,8 @@ const resolvers = {
     users: async () => {
       return User.find().populate('username');
     },
-    tourneys: async () => {
-      return Tourney.find().populate('tourneyName');
+   tourneys: async () => {
+      return await Tourney.find().populate(['players', 'organizer']);;
     },
     organizer: async ({ tourney }) => {
       return Tourney.findone({ tourney }).populate('organizer');
