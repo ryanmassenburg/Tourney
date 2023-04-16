@@ -28,16 +28,19 @@ export const ADD_TOURNEY = gql`
   mutation addTourney($organizer: ID, $tourneyName: String!, $description: String!, $game: String!, $startTime: String!) {
     addTourney(organizer: $organizer, tourneyName: $tourneyName, description: $description, game: $game, startTime: $startTime) {
       _id
-      organizer
+      organizer {
+        _id
+        email
+        username
+      }
       tourneyName
       description
       game
       startTime
-      players { 
-        user {
-          _id
-          username
-        }
+      players {
+         _id
+         email
+         username
       }
     }
   }

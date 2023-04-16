@@ -25,23 +25,23 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
-    addTourney: async (parent, { organizer, tourneyName, description, game, startTime}) => {
+    
+    addTourney: async (parent, { organizer, tourneyName, description, game, startTime }) => {
       console.log(organizer, tourneyName, description, game, startTime)
-      const tourney = await Tourney.create({ organizer, tourneyName, description, game, startTime:new Date(startTime)});
+      const tourney = await Tourney.create({ organizer, tourneyName, description, game, startTime: new Date(startTime) });
+      await tourney.populate(['players', 'organizer']);
+      await tourney.save();
       return tourney;
     },
+
     addPlayer: async (parent, { tourneyId, userId }) => {
       const tourney = await Tourney.findById(tourneyId);
       tourney.players.push(userId);
+      await tourney.populate(['players', 'organizer']);
       await tourney.save();
       return tourney;
-      // return Tourney.findOneAndUpdate(
-      //   { _id: tourneyId },
-      //   {
-      //     $addToSet: { players: { username } },
-      //   },
-      // );
     },
+
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
 

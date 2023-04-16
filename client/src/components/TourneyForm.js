@@ -35,11 +35,11 @@ const TourneyForm = () => {
     try {
       const { data } = await addTourney({
         variables: {
+          organizer: Auth.getProfile().data._id,
           tourneyName,
           description,
           game,
           startTime,
-          organizer: Auth.getProfile().data.username,
         },
       });
 
