@@ -9,7 +9,9 @@ import Auth from '../utils/auth';
 
 const TourneyForm = () => {
   const [tourneyName, setTourneyName] = useState('');
-
+  const [description, setDescription] = useState('');
+  const [game, setTourneyGame] = useState('');
+  const [startTime, setStartTime] = useState('');
   
 
   const [addTourney, { error }] = useMutation(ADD_TOURNEY, {
@@ -34,9 +36,9 @@ const TourneyForm = () => {
       const { data } = await addTourney({
         variables: {
           tourneyName,
-          // description,
-          // game,
-          // startTime,
+          description,
+          game,
+          startTime,
           organizer: Auth.getProfile().data.username,
         },
       });
@@ -50,9 +52,17 @@ const TourneyForm = () => {
   const handleChange = (event) => {
     const { name, value } = event.target;
 
-    if (name === 'tourneyName' && value.length <= 280) {
+    if (name === 'tourneyName') {
       setTourneyName(value);
-      
+    }
+    if (name === 'description') {
+      setDescription(value);
+    }
+    if (name === 'game') {
+      setTourneyGame(value);
+    }
+    if (name === 'startTime') {
+      setStartTime(value);
     }
   };
 
@@ -78,6 +88,30 @@ const TourneyForm = () => {
                 name="tourneyName"
                 placeholder="Name"
                 value={tourneyName}
+                className="form-input w-100"
+                style={{ lineHeight: '1.5', resize: 'vertical' }}
+                onChange={handleChange}
+              ></input>
+              <input
+                name="description"
+                placeholder="Description"
+                value={description}
+                className="form-input w-100"
+                style={{ lineHeight: '1.5', resize: 'vertical' }}
+                onChange={handleChange}
+              ></input>
+              <input
+                name="game"
+                placeholder="Game"
+                value={game}
+                className="form-input w-100"
+                style={{ lineHeight: '1.5', resize: 'vertical' }}
+                onChange={handleChange}
+              ></input>
+              <input
+                name="startTime"
+                placeholder="Start Time in MM/DD/YYYY"
+                value={startTime}
                 className="form-input w-100"
                 style={{ lineHeight: '1.5', resize: 'vertical' }}
                 onChange={handleChange}
