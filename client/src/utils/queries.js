@@ -32,3 +32,16 @@ export const QUERY_TOURNEYS = gql`
   }
 `;
 
+export const QUERY_SINGLE_TOURNEY = gql`
+  query getSingleTourney($tourneyId: ID!) {
+    tourney(tourneyId: $tourneyId) {
+      _id
+      tourneyName
+      organizer {
+        _id
+        email
+        username
+      }
+    }
+  }
+`;

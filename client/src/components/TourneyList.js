@@ -14,12 +14,13 @@ const TourneyList = ({ tourneys, title }) => {
           <div key={tourney._id} className="card mb-3">
             <h4 className="card-header bg-primary text-light p-2 m-0">
               {tourney.tourneyName} <br />
+              {tourney.organizer.username} <br />
             </h4>
             <Link
               className="btn btn-primary btn-block btn-squared"
-              to={`/tourneys/${tourney._id}`}
+              to={`/tourney/${tourney._id}`}
             >
-              Join a Tourney
+              Go to Tourney!
             </Link>
           </div>
         ))}

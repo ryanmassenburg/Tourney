@@ -14,6 +14,9 @@ const resolvers = {
     organizer: async ({ tourney }) => {
       return Tourney.findone({ tourney }).populate('organizer');
     },
+    tourney: async (parent, { tourneyId }) => {
+      return Tourney.findOne({ _id: tourneyId });
+    },
     players: async ({ tourneyName }) => {
       return Tourney.findOne({ tourneyName }).populate('players');
     },

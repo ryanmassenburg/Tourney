@@ -23,9 +23,10 @@ const typeDefs = gql`
   }
 
   type Query {
-    tourneys: [Tourney]
-    organizer(organizer: String!): Tourney
     users: [User]
+    organizer(organizer: String!): Tourney
+    tourneys: [Tourney]
+    tourney(tourneyId: ID!): Tourney
     players(players: String!): Tourney
   }
 

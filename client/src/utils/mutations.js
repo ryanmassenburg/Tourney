@@ -45,18 +45,3 @@ export const ADD_TOURNEY = gql`
     }
   }
 `;
-
-export const ADD_PLAYER = gql`
-  mutation addPlayer($tourneyId: ID, $userId: ID) {
-    addPlayer(tourneyId: $tourneyId, userId: $userId) {
-      _id
-      thoughtText
-      thoughtAuthor
-      createdAt
-      comments {
-        _id
-        commentText
-      }
-    }
-  }
-`;
