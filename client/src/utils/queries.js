@@ -6,37 +6,41 @@ export const QUERY_USER = gql`
       _id
       username
       email
-      thoughts {
+    }
+  }
+`;
+
+export const QUERY_TOURNEYS = gql`
+  query getTourneys {
+    tourneys {
+      _id
+      organizer {
         _id
-        thoughtText
-        createdAt
+        email
+        username
       }
-    }
-  }
-`;
-
-export const QUERY_THOUGHTS = gql`
-  query getThoughts {
-    thoughts {
-      _id
-      thoughtText
-      thoughtAuthor
-      createdAt
-    }
-  }
-`;
-
-export const QUERY_SINGLE_THOUGHT = gql`
-  query getSingleThought($thoughtId: ID!) {
-    thought(thoughtId: $thoughtId) {
-      _id
-      thoughtText
-      thoughtAuthor
-      createdAt
-      comments {
+      tourneyName
+      description
+      game
+      startTime
+      players {
         _id
-        commentText
-        createdAt
+        email
+        username
+     }
+    }
+  }
+`;
+
+export const QUERY_SINGLE_TOURNEY = gql`
+  query getSingleTourney($tourneyId: ID!) {
+    tourney(tourneyId: $tourneyId) {
+      _id
+      tourneyName
+      organizer {
+        _id
+        email
+        username
       }
     }
   }

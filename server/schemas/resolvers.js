@@ -1,21 +1,24 @@
 const { AuthenticationError } = require('apollo-server-express');
-const { User, Thought } = require('../models');
+const { User, Tourney } = require('../models');
 const { signToken } = require('../utils/auth');
+
 
 const resolvers = {
   Query: {
     users: async () => {
-      return User.find().populate('thoughts');
+      return User.find().populate('username');
     },
-    user: async (parent, { username }) => {
-      return User.findOne({ username }).populate('thoughts');
+   tourneys: async () => {
+      return await Tourney.find().populate(['players', 'organizer']);;
     },
-    thoughts: async (parent, { username }) => {
-      const params = username ? { username } : {};
-      return Thought.find(params).sort({ createdAt: -1 });
+    organizer: async ({ tourney }) => {
+      return Tourney.findone({ tourney }).populate('organizer');
     },
-    thought: async (parent, { thoughtId }) => {
-      return Thought.findOne({ _id: thoughtId });
+    tourney: async (parent, { tourneyId }) => {
+      return Tourney.findOne({ _id: tourneyId });
+    },
+    players: async ({ tourneyName }) => {
+      return Tourney.findOne({ tourneyName }).populate('players');
     },
   },
 
@@ -25,6 +28,23 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
+    
+    addTourney: async (parent, { organizer, tourneyName, description, game, startTime }) => {
+      console.log(organizer, tourneyName, description, game, startTime)
+      const tourney = await Tourney.create({ organizer, tourneyName, description, game, startTime: new Date(startTime) });
+      await tourney.populate(['players', 'organizer']);
+      await tourney.save();
+      return tourney;
+    },
+
+    addPlayer: async (parent, { tourneyId, userId }) => {
+      const tourney = await Tourney.findById(tourneyId);
+      tourney.players.push(userId);
+      await tourney.populate(['players', 'organizer']);
+      await tourney.save();
+      return tourney;
+    },
+
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
 
@@ -41,38 +61,6 @@ const resolvers = {
       const token = signToken(user);
 
       return { token, user };
-    },
-    addThought: async (parent, { thoughtText, thoughtAuthor }) => {
-      const thought = await Thought.create({ thoughtText, thoughtAuthor });
-
-      await User.findOneAndUpdate(
-        { username: thoughtAuthor },
-        { $addToSet: { thoughts: thought._id } }
-      );
-
-      return thought;
-    },
-    addComment: async (parent, { thoughtId, commentText, commentAuthor }) => {
-      return Thought.findOneAndUpdate(
-        { _id: thoughtId },
-        {
-          $addToSet: { comments: { commentText, commentAuthor } },
-        },
-        {
-          new: true,
-          runValidators: true,
-        }
-      );
-    },
-    removeThought: async (parent, { thoughtId }) => {
-      return Thought.findOneAndDelete({ _id: thoughtId });
-    },
-    removeComment: async (parent, { thoughtId, commentId }) => {
-      return Thought.findOneAndUpdate(
-        { _id: thoughtId },
-        { $pull: { comments: { _id: commentId } } },
-        { new: true }
-      );
     },
   },
 };

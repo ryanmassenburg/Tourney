@@ -24,40 +24,23 @@ export const ADD_USER = gql`
   }
 `;
 
-export const ADD_THOUGHT = gql`
-  mutation addThought($thoughtText: String!, $thoughtAuthor: String!) {
-    addThought(thoughtText: $thoughtText, thoughtAuthor: $thoughtAuthor) {
+export const ADD_TOURNEY = gql`
+  mutation addTourney($organizer: ID, $tourneyName: String!, $description: String!, $game: String!, $startTime: String!) {
+    addTourney(organizer: $organizer, tourneyName: $tourneyName, description: $description, game: $game, startTime: $startTime) {
       _id
-      thoughtText
-      thoughtAuthor
-      createdAt
-      comments {
+      organizer {
         _id
-        commentText
+        email
+        username
       }
-    }
-  }
-`;
-
-export const ADD_COMMENT = gql`
-  mutation addComment(
-    $thoughtId: ID!
-    $commentText: String!
-    $commentAuthor: String!
-  ) {
-    addComment(
-      thoughtId: $thoughtId
-      commentText: $commentText
-      commentAuthor: $commentAuthor
-    ) {
-      _id
-      thoughtText
-      thoughtAuthor
-      createdAt
-      comments {
-        _id
-        commentText
-        createdAt
+      tourneyName
+      description
+      game
+      startTime
+      players {
+         _id
+         email
+         username
       }
     }
   }
