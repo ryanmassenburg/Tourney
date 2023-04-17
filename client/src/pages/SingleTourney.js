@@ -6,8 +6,7 @@ import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 import Auth from '../utils/auth';
 
-// import CommentList from '../components/CommentList';
-// import CommentForm from '../components/CommentForm';
+import BracketForm from '../components/BracketForm';
 
 import { QUERY_SINGLE_TOURNEY } from '../utils/queries';
 
@@ -32,12 +31,12 @@ const SingleTourney = () => {
       <h3 className="card-header bg-dark text-light p-2 m-0">
         {tourney.tourneyName} <br />
         <span style={{ fontSize: '1rem' }}>
-          had this thought on
+        {tourney.organizer.username}
         </span>
       </h3>
-      <div>
-        <p>Hello world</p> 
-    </div>
+      <div className="m-3 p-4" style={{ border: '1px dotted #1a1a1a' }}>
+        <BracketForm tourneyId={tourney._id} />
+      </div>
     </>
      ) : (
       <p>
