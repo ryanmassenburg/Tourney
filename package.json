@@ -4,20 +4,15 @@
   "description": "",
   "main": "server/server.js",
   "scripts": {
-    "client-install": "cd client && npm install",
-    "server-install": "cd server && npm install",
     "start": "cd server && node server.js --ignore client",
     "develop": "concurrently \"cd server && npm run start\" \"cd client && npm start\"",
     "install": "cd server && npm i && cd ../client && npm i",
     "seed": "cd server && npm run seed",
-    "build": "cd client && npm run build"
+    "build": "cd client && npm install && npm run build && cd ../server && npm install"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "bcrypt": "^5.0.1"
-  },
   "devDependencies": {
     "concurrently": "^5.1.0"
   }
