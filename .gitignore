@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-node_modules
-.env
-.DS_Store
-=======
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
@@ -27,4 +22,3 @@ node_modules
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
->>>>>>> d362d4f09b56aee5f56d8fbd073e465fbf4fe1e9
